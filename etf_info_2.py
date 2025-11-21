@@ -53,8 +53,10 @@ print(elapsed_time)
 
 # correct answer is $33 and 0.165%
 # NEXT STEPS:
-# time both files, see which is faster
-# see what happens when individual stocks, bonds, mutual funds, and invalid tickers passed in CSV
+# see what happens when:
+# individual stocks - Key Error
+# mutual funds - Key Error
+# invalid tickers - Key Error
 # use try except blocks to handle errors
 
 
