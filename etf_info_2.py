@@ -3,7 +3,7 @@ import requests
 import time
 import json
 
-portfolio_df_raw = pd.read_csv('etf_info_2.csv')
+# portfolio_df_raw = pd.read_csv('etf_info_2.csv')
 
 
 def get_expense_ratios(df):  # function to return list of expense ratios
@@ -21,8 +21,8 @@ def get_expense_ratios(df):  # function to return list of expense ratios
     return exp_ratios
 
 
-expense_ratios = get_expense_ratios(portfolio_df_raw)
-market_values = list(portfolio_df_raw['market_value'])
+# expense_ratios = get_expense_ratios(portfolio_df_raw)
+# market_values = list(portfolio_df_raw['market_value'])
 
 
 def get_annual_expense(exp, val):
@@ -42,22 +42,35 @@ def get_weighted_average_expense(exp, val):
     return total_weighted_exp_output
 
 
+def expense_analysis(file):
+    try:
+        df = pd.read_csv(file)
+        expense_ratios = get_expense_ratios(df)
+        market_values = list(df['market_value'])
+        annual_exp = get_annual_expense(expense_ratios, market_values)
+        weighted_exp = get_weighted_average_expense(expense_ratios, market_values)
+    except KeyError:
+        print('Error: only valid ETF tickers accepted')
+        annual_exp = None
+        weighted_exp = None
+    except TypeError:
+        print('Error: market value must be a positive number')
+        annual_exp = None
+        weighted_exp = None
+    except ValueError:
+        print('Error: ticker and market value columns must be populated')
+        annual_exp = None
+        weighted_exp = None
+    return annual_exp, weighted_exp
+
+
 start_time = time.time()
-
-print(get_annual_expense(expense_ratios, market_values))
-print(get_weighted_average_expense(expense_ratios, market_values))
-
+print(expense_analysis('etf_info_2.csv'))
 end_time = time.time()
 elapsed_time = end_time - start_time
 print(elapsed_time)
 
 # correct answer is $33 and 0.165%
-# NEXT STEPS:
-# see what happens when:
-# individual stocks - Key Error
-# mutual funds - Key Error
-# invalid tickers - Key Error
-# use try except blocks to handle errors
 
 
 

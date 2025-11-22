@@ -10,19 +10,19 @@ url = "https://financialmodelingprep.com/stable/etf/info?symbol=SPY&apikey=OJ3qt
 # portfolio_df_raw = pd.read_csv('etf_info_2.csv')
 
 
-def get_expense_ratios(df):  # function to return list of expense ratios
-    base_url = 'https://www.alphavantage.co/query?function=ETF_PROFILE&symbol='
-    api_key = '&apikey=PO2AAG7Y6MDKW39M'
-    exp_ratios = []
-
-    for i in df['ticker']:
-        link = f'{base_url}{i}{api_key}'
-        a = requests.get(link)
-        b = a.json()
-        exp_ratio = float(b['net_expense_ratio'])
-        exp_ratios.append(exp_ratio)
-
-    return exp_ratios
+# def get_expense_ratios(df):  # function to return list of expense ratios
+#     base_url = 'https://www.alphavantage.co/query?function=ETF_PROFILE&symbol='
+#     api_key = '&apikey=PO2AAG7Y6MDKW39M'
+#     exp_ratios = []
+#
+#     for i in df['ticker']:
+#         link = f'{base_url}{i}{api_key}'
+#         a = requests.get(link)
+#         b = a.json()
+#         exp_ratio = float(b['net_expense_ratio'])
+#         exp_ratios.append(exp_ratio)
+#
+#     return exp_ratios
 
 
 # expense_ratios = get_expense_ratios(portfolio_df_raw)
